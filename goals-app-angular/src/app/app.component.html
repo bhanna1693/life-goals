@@ -1,0 +1,92 @@
+<div class="jumbotron">
+  <h1 class="title">2019 Goals</h1>
+</div>
+
+
+
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+
+      <h2 class="res-list">Goal List</h2>
+
+      <div class="goals" *ngIf="goalsList">
+          <table class="table">
+              <thead class="h">
+                  <tr class="h">
+                      <th class="h">Goal</th>
+                      <th class="h">How will you accomplish this goal?</th>
+                      <th class="h">Date Created</th>
+                      <th class="h">Status</th>
+                      <th class="h">Options</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr class="goal" (dblclick)="editGoal(goal)" *ngFor="let goal of goalsList">
+
+                      <ng-container *ngIf="!editGoals.includes(goal); else editGoalTemplate">
+                          <td>{{goal.title}}</td>
+                          <td>{{goal.description}}</td>
+                          <td>{{goal.date | date}}</td>
+                          <td>{{goal.status}}</td>
+                      </ng-container>
+
+                      <ng-template #editGoalTemplate>
+                          <td><input type="text" name="title" id="title" (keypress)="submitGoal($event, goal)"
+                                  [(ngModel)]="goal.title" placeholder="Title" class="form-control"></td>
+                          <td><input type="text" name="description" id="description" (keypress)="submitGoal($event, goal)"
+                                  [(ngModel)]="goal.description" placeholder="Description" class="form-control"></td>
+                          <td>{{goal.date | date}}</td>
+                          <td>
+                              <input type="text" name="status" id="status" (keypress)="submitGoal($event, goal)"
+                                  [(ngModel)]="goal.status" placeholder="Status" class="form-control">
+                          </td>
+                      </ng-template>
+
+                      <td class="o">
+                          <button class="btn btn-success" (click)="doneGoal(goal)">
+                              <i class="fa fa-check">Done</i>
+                          </button>
+                          <button class="btn btn-primary" (click)="editGoal(goal)">
+                              <i class="fa fa-pencil">Edit</i>
+                          </button>
+                          <button class="btn btn-danger" (click)="deleteGoal(goal)">
+                              <i class="fa fa-trash">Delete</i>
+                          </button>
+                      </td>
+
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <br>
+      <br>
+
+      <form>
+          <h2>Add a New Goal!</h2>
+          <div class="form-row">
+
+              <div class="col-md-5">
+                  <input type="text" name="title" id="title" [(ngModel)]="newGoal.title" placeholder="Goal"
+                      class="form-control">
+              </div>
+              <div class="col-md-5">
+                  <input name="description" id="description" [(ngModel)]="newGoal.description" placeholder="Tell us why..."
+                      class="form-control" id="description">
+              </div>
+              <div class="col-md-2">
+                  <button type="submit" class="btn btn-primary" (click)="create()">Add</button>
+              </div>
+          </div>
+      </form>
+  </div>
+  <div class="col-md-2"></div>
+
+</div>
+
+<div class="row">
+  By: Brian Hanna
+</div>
+
+<router-outlet></router-outlet>
