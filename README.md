@@ -1,4 +1,4 @@
-# life-goals
+# Mean Stack App & GitHub
 
 - Pull from a Branch - git pull 
   OR clone the repo using the green button on the right side of the screen
